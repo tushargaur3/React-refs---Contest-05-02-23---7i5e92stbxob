@@ -1,39 +1,44 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React,{useState,useEffect,useRef} from 'react'
 import '../styles/App.css';
 const App = () => {
 
 //code here 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const inputEmailRef = useRef(null)
-  const inputPasswordRef = useRef(null)
-  const [userDeatils, setUserDetails] = useState({})
-  const handleSubmit = () => {
-    if (email == '') {
-      inputEmailRef.current.focus()
+  const emailInput = useRef(null)
+  const passInput = useRef(null)
+  
+const[email, setEmail] = useState("");
+const[pass, setPass] = useState("");
+const[emailVal, setEmailVal] = useState("");
+const[passVal, setPassVal] = useState("");
+  
+  
+  
+  const handleSubmitBtn = () => {
+    setEmailVal("");
+    setPassVal("");
+    if(email.length === 0){
+      emailInput.current.focus();
+    }else if(pass.length === 0){
+      passInput.current.focus();
+    }else{
+      setEmailVal(email);
+      setPassVal(pass);
+      setEmail("");
+      setPass("");
     }
-    else if (password == '') {
-      inputPasswordRef.current.focus()
-    }
-    else {
-      setUserDetails({
-        email,
-        password
-      })
-      setEmail('')
-      setPassword('')
-    }
+  
   }
+    
   
   return (
     <div id="main">
       Email
-      <input id="inputEmail" type="text" value={email} ref={inputEmailRef} onChange={(e) => setEmail(e.target.value)}/><br/>
+      <input id="inputEmail" type="text" value={email} ref={emailInput} onChange={(e) => setEmail(e.target.value)}/><br required/>
       Password
-      <input id="inputPassword" type="text" value={password} ref={inputPasswordRef} onChange={(e) => setPassword(e.target.value)}/><br/>
-      <button id="submitButton" onClick={handleSubmit}>Submit</button><br/>
-      <p id="emailText">Your Email : {userDetails.email}</p>
-      <p id ="passwordText">Your Password : {{userDetails.password}</p>
+      <input id="inputPassword" type="text" value={pass} ref={passInput} onChange={(e) => setPass(e.target.value)}/><br required/>
+      <button id="submitButton" onClick={() => handleSubmitBtn()}>Submit</button><br/>
+      <p id="emailText">Your Email : {emailVal}</p>
+      <p id ="passwordText">Your Password : {passVal}</p>
       
     </div>
   )
